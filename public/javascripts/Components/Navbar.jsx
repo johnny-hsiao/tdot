@@ -17,7 +17,7 @@ export default class Navbar extends Component {
       password: e.currentTarget.children[0].lastChild.value
     })
     .then((res) => {
-      if (res.data.data.login) {
+      if (res.data && res.data.data.login) {
         window.localStorage.accessToken = res.data.token;
         this.props._toggleLogIn();
       }

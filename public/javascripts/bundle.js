@@ -35807,7 +35807,7 @@
 	        email: e.currentTarget.children[0].firstChild.value,
 	        password: e.currentTarget.children[0].lastChild.value
 	      }).then(function (res) {
-	        if (res.data.data.login) {
+	        if (res.data && res.data.data.login) {
 	          window.localStorage.accessToken = res.data.token;
 	          _this2.props._toggleLogIn();
 	        }
