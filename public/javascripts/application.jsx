@@ -7,6 +7,9 @@ import parseXML from './parseXML/parseXML';
 import axios from 'axios';
 
 import Navbar from './Components/Navbar.jsx';
+import TableView from './Components/TableView.jsx';
+import MapView from './Components/MapView.jsx';
+
 import Control from './Components/Control.jsx';
 import Map from './Components/Map.jsx';
 import Display from './Components/Display.jsx';
@@ -25,6 +28,7 @@ class App extends Component {
     this._selectAttraction = this._selectAttraction.bind(this);
     this._toggleFavorites = this._toggleFavorites.bind(this);
     this._toggleBixi = this._toggleBixi.bind(this);
+    this._toggleView = this._toggleView.bind(this);
   }
 
   componentWillMount() {
@@ -34,7 +38,8 @@ class App extends Component {
       this.setState({
         attractions: res.data.plist.array[0].dict,
         attractionSelected: res.data.plist.array[0].dict[0],
-        favorites: []
+        favorites: [],
+        mapView: false
       })
     });
 
@@ -61,6 +66,12 @@ class App extends Component {
   _toggleBixi() {
     this.setState({
       showBixi: !this.state.showBixi
+    })
+  }
+
+  _toggleView() {
+    this.setState({
+      mapView: !this.state.mapView
     })
   }
 
@@ -95,7 +106,21 @@ class App extends Component {
       <div>
         <Navbar />
 
-        <div className="main-container col-xs-12 col-md-12 red">
+        {this.state.mapView ?
+        <div className="main-container map-view col-xs-12 col-md-12 red">
+          <div className="row">
+            <div className="tabular-view col-xs-12 col-md 12">
+              <button className="btn btn-default" onClick={this._toggleView}>Map View</button>
+            </div>
+          </div>
+          <div className="row">
+            <div className="mapview col-xs-12 col-md 12">
+              { this.state.attractions &&
+              <MapView {...this.state} />
+              }
+            </div>
+          </div>
+
           <div className="row">
             <div className="control col-xs-12 col-md 12">
               <Control {...this.state} _toggleBixi={this._toggleBixi} />
@@ -104,7 +129,7 @@ class App extends Component {
 
           <div className="row">
 
-            <div className="display col-xs-5 col-md 5">
+            <div className="display col-xs-3 col-md 3">
               { this.state.attractions && 
                 <Display {...this.state} 
                         _selectAttraction={this._selectAttraction}
@@ -112,19 +137,32 @@ class App extends Component {
               }
             </div>
 
-            <div className="photo col-xs-6 col-md 6">
-              <Photo {...this.state} />
-            </div>
-
-            <div className="map col-xs-6 col-md 6">
+            <div className="map col-xs-8 col-md 8">
             { this.state.attractionSelected &&
               <Map {...this.state} lat={this.state.attractionSelected.string[1]} lng={this.state.attractionSelected.string[0]} />
             }
             </div>
-          </div>
 
-          
+            <div className="photo col-xs-3 col-md 3">
+              <Photo attraction={this.state.attractionSelected} />
+            </div>
+          </div>
+  
         </div>
+        :
+        <div className="main-container tabular-view col-xs-12 col-md-12 red">
+          <div className="row">
+            <div className="tabular-view col-xs-12 col-md 12">
+              <button className="btn btn-default" onClick={this._toggleView}>Map View</button>
+            </div>
+          </div>
+          <div className="row">
+            <div className="tabular-view col-xs-12 col-md 12">
+              <TableView {...this.state} />
+            </div>
+          </div>
+        </div>
+        }
       </div>
     );
   }

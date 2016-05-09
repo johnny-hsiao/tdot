@@ -12,8 +12,8 @@ export default class Photo extends Component {
     return (
       <div>
 
-        { this.props.attractionSelected
-            ? <img id="attraction_photo" style={image } src={ '../../assets/images/' + ReturnFileName(this.props.attractionSelected.string[3]) }/>
+        { this.props.attraction
+            ? <img id="attraction_photo" style={image } src={ '../../assets/images/' + ReturnFileName(this.props.attraction.string[3]) }/>
             : null
         }
       </div>

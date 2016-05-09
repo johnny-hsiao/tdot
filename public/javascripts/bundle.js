@@ -81,19 +81,27 @@
 	
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 	
-	var _Control = __webpack_require__(/*! ./Components/Control.jsx */ 390);
+	var _TableView = __webpack_require__(/*! ./Components/TableView.jsx */ 370);
+	
+	var _TableView2 = _interopRequireDefault(_TableView);
+	
+	var _MapView = __webpack_require__(/*! ./Components/MapView.jsx */ 374);
+	
+	var _MapView2 = _interopRequireDefault(_MapView);
+	
+	var _Control = __webpack_require__(/*! ./Components/Control.jsx */ 376);
 	
 	var _Control2 = _interopRequireDefault(_Control);
 	
-	var _Map = __webpack_require__(/*! ./Components/Map.jsx */ 370);
+	var _Map = __webpack_require__(/*! ./Components/Map.jsx */ 377);
 	
 	var _Map2 = _interopRequireDefault(_Map);
 	
-	var _Display = __webpack_require__(/*! ./Components/Display.jsx */ 387);
+	var _Display = __webpack_require__(/*! ./Components/Display.jsx */ 394);
 	
 	var _Display2 = _interopRequireDefault(_Display);
 	
-	var _Photo = __webpack_require__(/*! ./Components/Photo.jsx */ 388);
+	var _Photo = __webpack_require__(/*! ./Components/Photo.jsx */ 371);
 	
 	var _Photo2 = _interopRequireDefault(_Photo);
 	
@@ -123,6 +131,7 @@
 	    _this._selectAttraction = _this._selectAttraction.bind(_this);
 	    _this._toggleFavorites = _this._toggleFavorites.bind(_this);
 	    _this._toggleBixi = _this._toggleBixi.bind(_this);
+	    _this._toggleView = _this._toggleView.bind(_this);
 	    return _this;
 	  }
 	
@@ -136,7 +145,8 @@
 	        _this2.setState({
 	          attractions: res.data.plist.array[0].dict,
 	          attractionSelected: res.data.plist.array[0].dict[0],
-	          favorites: []
+	          favorites: [],
+	          mapView: false
 	        });
 	      });
 	
@@ -166,6 +176,13 @@
 	    value: function _toggleBixi() {
 	      this.setState({
 	        showBixi: !this.state.showBixi
+	      });
+	    }
+	  }, {
+	    key: '_toggleView',
+	    value: function _toggleView() {
+	      this.setState({
+	        mapView: !this.state.mapView
 	      });
 	    }
 	  }, {
@@ -199,9 +216,31 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(_Navbar2.default, null),
-	        _react2.default.createElement(
+	        this.state.mapView ? _react2.default.createElement(
 	          'div',
-	          { className: 'main-container col-xs-12 col-md-12 red' },
+	          { className: 'main-container map-view col-xs-12 col-md-12 red' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'row' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'tabular-view col-xs-12 col-md 12' },
+	              _react2.default.createElement(
+	                'button',
+	                { className: 'btn btn-default', onClick: this._toggleView },
+	                'Map View'
+	              )
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'row' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'mapview col-xs-12 col-md 12' },
+	              this.state.attractions && _react2.default.createElement(_MapView2.default, this.state)
+	            )
+	          ),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'row' },
@@ -216,20 +255,45 @@
 	            { className: 'row' },
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'display col-xs-5 col-md 5' },
+	              { className: 'display col-xs-3 col-md 3' },
 	              this.state.attractions && _react2.default.createElement(_Display2.default, _extends({}, this.state, {
 	                _selectAttraction: this._selectAttraction,
 	                _toggleFavorites: this._toggleFavorites }))
 	            ),
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'photo col-xs-6 col-md 6' },
-	              _react2.default.createElement(_Photo2.default, this.state)
+	              { className: 'map col-xs-8 col-md 8' },
+	              this.state.attractionSelected && _react2.default.createElement(_Map2.default, _extends({}, this.state, { lat: this.state.attractionSelected.string[1], lng: this.state.attractionSelected.string[0] }))
 	            ),
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'map col-xs-6 col-md 6' },
-	              this.state.attractionSelected && _react2.default.createElement(_Map2.default, _extends({}, this.state, { lat: this.state.attractionSelected.string[1], lng: this.state.attractionSelected.string[0] }))
+	              { className: 'photo col-xs-3 col-md 3' },
+	              _react2.default.createElement(_Photo2.default, { attraction: this.state.attractionSelected })
+	            )
+	          )
+	        ) : _react2.default.createElement(
+	          'div',
+	          { className: 'main-container tabular-view col-xs-12 col-md-12 red' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'row' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'tabular-view col-xs-12 col-md 12' },
+	              _react2.default.createElement(
+	                'button',
+	                { className: 'btn btn-default', onClick: this._toggleView },
+	                'Map View'
+	              )
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'row' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'tabular-view col-xs-12 col-md 12' },
+	              _react2.default.createElement(_TableView2.default, this.state)
 	            )
 	          )
 	        )
@@ -35822,6 +35886,556 @@
 
 /***/ },
 /* 370 */
+/*!*****************************************************!*\
+  !*** ./public/javascripts/Components/TableView.jsx ***!
+  \*****************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _Grid = __webpack_require__(/*! react-bootstrap/lib/Grid */ 168);
+	
+	var _Grid2 = _interopRequireDefault(_Grid);
+	
+	var _Photo = __webpack_require__(/*! ./Photo.jsx */ 371);
+	
+	var _Photo2 = _interopRequireDefault(_Photo);
+	
+	var _Detail = __webpack_require__(/*! ./Detail.jsx */ 373);
+	
+	var _Detail2 = _interopRequireDefault(_Detail);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var TableView = function (_Component) {
+	  _inherits(TableView, _Component);
+	
+	  function TableView(props) {
+	    _classCallCheck(this, TableView);
+	
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(TableView).call(this, props));
+	  }
+	
+	  _createClass(TableView, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          'Points of Interest'
+	        ),
+	        _react2.default.createElement(
+	          'table',
+	          { className: 'table table-bordered' },
+	          _react2.default.createElement(
+	            'tbody',
+	            null,
+	            this.props.attractions && this.props.attractions.map(function (attraction) {
+	              return _react2.default.createElement(
+	                'tr',
+	                { key: attraction.string[3] },
+	                _react2.default.createElement(
+	                  'td',
+	                  { className: 'photo col-xs-2 col-md-2' },
+	                  _react2.default.createElement(_Photo2.default, { attraction: attraction })
+	                ),
+	                _react2.default.createElement(
+	                  'td',
+	                  { className: 'detail col-xs-9 col-md-9' },
+	                  _react2.default.createElement(_Detail2.default, { attraction: attraction })
+	                )
+	              );
+	            })
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return TableView;
+	}(_react.Component);
+	
+	exports.default = TableView;
+
+/***/ },
+/* 371 */
+/*!*************************************************!*\
+  !*** ./public/javascripts/Components/Photo.jsx ***!
+  \*************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _Grid = __webpack_require__(/*! react-bootstrap/lib/Grid */ 168);
+	
+	var _Grid2 = _interopRequireDefault(_Grid);
+	
+	var _ReturnFileName = __webpack_require__(/*! ../Util/ReturnFileName */ 372);
+	
+	var _ReturnFileName2 = _interopRequireDefault(_ReturnFileName);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var image = {
+	  height: '40vh',
+	  width: '40vh'
+	};
+	
+	var Photo = function (_Component) {
+	  _inherits(Photo, _Component);
+	
+	  function Photo() {
+	    _classCallCheck(this, Photo);
+	
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Photo).apply(this, arguments));
+	  }
+	
+	  _createClass(Photo, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        this.props.attraction ? _react2.default.createElement('img', { id: 'attraction_photo', style: image, src: '../../assets/images/' + (0, _ReturnFileName2.default)(this.props.attraction.string[3]) }) : null
+	      );
+	    }
+	  }]);
+	
+	  return Photo;
+	}(_react.Component);
+	
+	exports.default = Photo;
+	;
+
+/***/ },
+/* 372 */
+/*!***************************************************!*\
+  !*** ./public/javascripts/Util/ReturnFileName.js ***!
+  \***************************************************/
+/***/ function(module, exports) {
+
+	function ReturnFileName (name) {
+	    switch (name) {
+	        case "Ripley's Aquarium":
+	            return 'aquarium.png';
+	            break;
+	        case 'Art Gallery of Ontario':
+	            return 'artgalleryontario.jpg';
+	            break;
+	        case 'CN Tower':
+	            return 'cntower.jpg';
+	            break;
+	        case 'Royal Ontario Museum':
+	            return 'rom.jpg';
+	            break;
+	        case 'City Hall':
+	            return 'torontocityhall.jpg';
+	            break;
+	        case 'Eaton Center':
+	            return 'torontoeatoncentre.jpg';
+	            break;
+	        case 'Toronto Zoo':
+	            return 'torontozoo.jpg';
+	            break;
+	        case 'Yorkdale Mall':
+	            return 'yorkdalemall.jpg';
+	            break;
+	        default:
+	            return 'no_image.jpg';
+	            break;
+	
+	    }
+	};
+	
+	module.exports = ReturnFileName;
+
+/***/ },
+/* 373 */
+/*!**************************************************!*\
+  !*** ./public/javascripts/Components/Detail.jsx ***!
+  \**************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _Grid = __webpack_require__(/*! react-bootstrap/lib/Grid */ 168);
+	
+	var _Grid2 = _interopRequireDefault(_Grid);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Detail = function (_Component) {
+	  _inherits(Detail, _Component);
+	
+	  function Detail(props) {
+	    _classCallCheck(this, Detail);
+	
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Detail).call(this, props));
+	  }
+	
+	  _createClass(Detail, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          this.props.attraction.string[3]
+	        ),
+	        _react2.default.createElement(
+	          'h4',
+	          null,
+	          'Website:',
+	          _react2.default.createElement(
+	            'a',
+	            { href: this.props.attraction.string[2] },
+	            this.props.attraction.string[2]
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Detail;
+	}(_react.Component);
+	
+	exports.default = Detail;
+
+/***/ },
+/* 374 */
+/*!***************************************************!*\
+  !*** ./public/javascripts/Components/MapView.jsx ***!
+  \***************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _Grid = __webpack_require__(/*! react-bootstrap/lib/Grid */ 168);
+	
+	var _Grid2 = _interopRequireDefault(_Grid);
+	
+	var _Carousel = __webpack_require__(/*! ./Carousel.jsx */ 375);
+	
+	var _Carousel2 = _interopRequireDefault(_Carousel);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var MapView = function (_Component) {
+	  _inherits(MapView, _Component);
+	
+	  function MapView(props) {
+	    _classCallCheck(this, MapView);
+	
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(MapView).call(this, props));
+	  }
+	
+	  _createClass(MapView, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_Carousel2.default, this.props)
+	      );
+	    }
+	  }]);
+	
+	  return MapView;
+	}(_react.Component);
+	
+	exports.default = MapView;
+
+/***/ },
+/* 375 */
+/*!****************************************************!*\
+  !*** ./public/javascripts/Components/Carousel.jsx ***!
+  \****************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _Grid = __webpack_require__(/*! react-bootstrap/lib/Grid */ 168);
+	
+	var _Grid2 = _interopRequireDefault(_Grid);
+	
+	var _ReturnFileName = __webpack_require__(/*! ../Util/ReturnFileName */ 372);
+	
+	var _ReturnFileName2 = _interopRequireDefault(_ReturnFileName);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var image = {
+	  height: '200px',
+	  width: '200px',
+	  overflow: 'hidden'
+	};
+	
+	var Carousel = function (_Component) {
+	  _inherits(Carousel, _Component);
+	
+	  function Carousel(props) {
+	    _classCallCheck(this, Carousel);
+	
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Carousel).call(this, props));
+	  }
+	
+	  _createClass(Carousel, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'well' },
+	          _react2.default.createElement(
+	            'div',
+	            { id: 'myCarousel', className: 'carousel slide' },
+	            this.props.attractions && _react2.default.createElement(
+	              'div',
+	              { className: 'carousel-inner' },
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'item active' },
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'row' },
+	                  this.props.attractions.map(function (attraction, index) {
+	                    return index < 4 ? _react2.default.createElement(
+	                      'div',
+	                      { className: 'col-sm-3 col-md-3', style: image, key: attraction.string[3] },
+	                      _react2.default.createElement(
+	                        'a',
+	                        { href: '#x' },
+	                        _react2.default.createElement('img', { src: '../../assets/images/' + (0, _ReturnFileName2.default)(attraction.string[3]), alt: 'Image' })
+	                      )
+	                    ) : null;
+	                  })
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'item' },
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'row' },
+	                  this.props.attractions.map(function (attraction, index) {
+	                    return index >= 4 && index < 8 ? _react2.default.createElement(
+	                      'div',
+	                      { className: 'col-sm-3 col-md-3', style: image, key: attraction.string[3] },
+	                      _react2.default.createElement(
+	                        'a',
+	                        { href: '#x' },
+	                        _react2.default.createElement('img', { src: '../../assets/images/' + (0, _ReturnFileName2.default)(attraction.string[3]), alt: 'Image' })
+	                      )
+	                    ) : null;
+	                  })
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'item' },
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'row' },
+	                  this.props.attractions.map(function (attraction, index) {
+	                    return index >= 8 && index < 12 ? _react2.default.createElement(
+	                      'div',
+	                      { className: 'col-sm-3 col-md-3', style: image, key: attraction.string[3] },
+	                      _react2.default.createElement(
+	                        'a',
+	                        { href: '#x' },
+	                        _react2.default.createElement('img', { src: '../../assets/images/' + (0, _ReturnFileName2.default)(attraction.string[3]), alt: 'Image' })
+	                      )
+	                    ) : null;
+	                  })
+	                )
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'left carousel-control', href: '#myCarousel', 'data-slide': 'prev' },
+	              '‹'
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'right carousel-control', href: '#myCarousel', 'data-slide': 'next' },
+	              '›'
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Carousel;
+	}(_react.Component);
+	
+	exports.default = Carousel;
+
+/***/ },
+/* 376 */
+/*!***************************************************!*\
+  !*** ./public/javascripts/Components/Control.jsx ***!
+  \***************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _Grid = __webpack_require__(/*! react-bootstrap/lib/Grid */ 168);
+	
+	var _Grid2 = _interopRequireDefault(_Grid);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Control = function (_Component) {
+	  _inherits(Control, _Component);
+	
+	  function Control(props) {
+	    _classCallCheck(this, Control);
+	
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Control).call(this, props));
+	
+	    _this._updateShowBixi = _this._updateShowBixi.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(Control, [{
+	    key: '_updateShowBixi',
+	    value: function _updateShowBixi() {
+	      this.props._toggleBixi();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          'Settings'
+	        ),
+	        'Bixi:',
+	        _react2.default.createElement(
+	          'button',
+	          { className: 'btn btn-default',
+	            onClick: this._updateShowBixi },
+	          this.props.showBixi ? "Hide" : "Show"
+	        ),
+	        _react2.default.createElement('hr', null)
+	      );
+	    }
+	  }]);
+	
+	  return Control;
+	}(_react.Component);
+	
+	exports.default = Control;
+
+/***/ },
+/* 377 */
 /*!***********************************************!*\
   !*** ./public/javascripts/Components/Map.jsx ***!
   \***********************************************/
@@ -35837,7 +36451,7 @@
 	
 	var _Grid2 = _interopRequireDefault(_Grid);
 	
-	var _reactGmaps = __webpack_require__(/*! react-gmaps */ 371);
+	var _reactGmaps = __webpack_require__(/*! react-gmaps */ 378);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -35868,8 +36482,8 @@
 	    return _react2.default.createElement(
 	      _reactGmaps.Gmaps,
 	      {
-	        width: '50vw',
-	        height: '50vh',
+	        width: '70vw',
+	        height: '70vh',
 	        lat: this.props.lat,
 	        lng: this.props.lng,
 	        zoom: 15,
@@ -35907,7 +36521,7 @@
 	module.exports = Map;
 
 /***/ },
-/* 371 */
+/* 378 */
 /*!*************************************!*\
   !*** ./~/react-gmaps/dist/index.js ***!
   \*************************************/
@@ -35921,19 +36535,19 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _componentsGmaps = __webpack_require__(/*! ./components/gmaps */ 372);
+	var _componentsGmaps = __webpack_require__(/*! ./components/gmaps */ 379);
 	
 	var _componentsGmaps2 = _interopRequireDefault(_componentsGmaps);
 	
-	var _componentsMarker = __webpack_require__(/*! ./components/marker */ 380);
+	var _componentsMarker = __webpack_require__(/*! ./components/marker */ 387);
 	
 	var _componentsMarker2 = _interopRequireDefault(_componentsMarker);
 	
-	var _componentsInfoWindow = __webpack_require__(/*! ./components/info-window */ 383);
+	var _componentsInfoWindow = __webpack_require__(/*! ./components/info-window */ 390);
 	
 	var _componentsInfoWindow2 = _interopRequireDefault(_componentsInfoWindow);
 	
-	var _componentsCircle = __webpack_require__(/*! ./components/circle */ 385);
+	var _componentsCircle = __webpack_require__(/*! ./components/circle */ 392);
 	
 	var _componentsCircle2 = _interopRequireDefault(_componentsCircle);
 	
@@ -35943,7 +36557,7 @@
 	exports.Circle = _componentsCircle2['default'];
 
 /***/ },
-/* 372 */
+/* 379 */
 /*!************************************************!*\
   !*** ./~/react-gmaps/dist/components/gmaps.js ***!
   \************************************************/
@@ -35971,19 +36585,19 @@
 	
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 	
-	var _eventsMap = __webpack_require__(/*! ../events/map */ 373);
+	var _eventsMap = __webpack_require__(/*! ../events/map */ 380);
 	
 	var _eventsMap2 = _interopRequireDefault(_eventsMap);
 	
-	var _mixinsListener = __webpack_require__(/*! ../mixins/listener */ 374);
+	var _mixinsListener = __webpack_require__(/*! ../mixins/listener */ 381);
 	
 	var _mixinsListener2 = _interopRequireDefault(_mixinsListener);
 	
-	var _utilsGoogleMaps = __webpack_require__(/*! ../utils/google-maps */ 375);
+	var _utilsGoogleMaps = __webpack_require__(/*! ../utils/google-maps */ 382);
 	
 	var _utilsGoogleMaps2 = _interopRequireDefault(_utilsGoogleMaps);
 	
-	var _utilsCompareProps = __webpack_require__(/*! ../utils/compare-props */ 379);
+	var _utilsCompareProps = __webpack_require__(/*! ../utils/compare-props */ 386);
 	
 	var _utilsCompareProps2 = _interopRequireDefault(_utilsCompareProps);
 	
@@ -36074,7 +36688,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 373 */
+/* 380 */
 /*!******************************************!*\
   !*** ./~/react-gmaps/dist/events/map.js ***!
   \******************************************/
@@ -36109,7 +36723,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 374 */
+/* 381 */
 /*!***********************************************!*\
   !*** ./~/react-gmaps/dist/mixins/listener.js ***!
   \***********************************************/
@@ -36150,7 +36764,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 375 */
+/* 382 */
 /*!*************************************************!*\
   !*** ./~/react-gmaps/dist/utils/google-maps.js ***!
   \*************************************************/
@@ -36164,7 +36778,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _querystring = __webpack_require__(/*! querystring */ 376);
+	var _querystring = __webpack_require__(/*! querystring */ 383);
 	
 	var _querystring2 = _interopRequireDefault(_querystring);
 	
@@ -36222,7 +36836,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 376 */
+/* 383 */
 /*!********************************!*\
   !*** ./~/querystring/index.js ***!
   \********************************/
@@ -36230,12 +36844,12 @@
 
 	'use strict';
 	
-	exports.decode = exports.parse = __webpack_require__(/*! ./decode */ 377);
-	exports.encode = exports.stringify = __webpack_require__(/*! ./encode */ 378);
+	exports.decode = exports.parse = __webpack_require__(/*! ./decode */ 384);
+	exports.encode = exports.stringify = __webpack_require__(/*! ./encode */ 385);
 
 
 /***/ },
-/* 377 */
+/* 384 */
 /*!*********************************!*\
   !*** ./~/querystring/decode.js ***!
   \*********************************/
@@ -36324,7 +36938,7 @@
 
 
 /***/ },
-/* 378 */
+/* 385 */
 /*!*********************************!*\
   !*** ./~/querystring/encode.js ***!
   \*********************************/
@@ -36397,7 +37011,7 @@
 
 
 /***/ },
-/* 379 */
+/* 386 */
 /*!***************************************************!*\
   !*** ./~/react-gmaps/dist/utils/compare-props.js ***!
   \***************************************************/
@@ -36430,7 +37044,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 380 */
+/* 387 */
 /*!*************************************************!*\
   !*** ./~/react-gmaps/dist/components/marker.js ***!
   \*************************************************/
@@ -36444,11 +37058,11 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _entity = __webpack_require__(/*! ./entity */ 381);
+	var _entity = __webpack_require__(/*! ./entity */ 388);
 	
 	var _entity2 = _interopRequireDefault(_entity);
 	
-	var _eventsMarker = __webpack_require__(/*! ../events/marker */ 382);
+	var _eventsMarker = __webpack_require__(/*! ../events/marker */ 389);
 	
 	var _eventsMarker2 = _interopRequireDefault(_eventsMarker);
 	
@@ -36456,7 +37070,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 381 */
+/* 388 */
 /*!*************************************************!*\
   !*** ./~/react-gmaps/dist/components/entity.js ***!
   \*************************************************/
@@ -36478,11 +37092,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _mixinsListener = __webpack_require__(/*! ../mixins/listener */ 374);
+	var _mixinsListener = __webpack_require__(/*! ../mixins/listener */ 381);
 	
 	var _mixinsListener2 = _interopRequireDefault(_mixinsListener);
 	
-	var _utilsCompareProps = __webpack_require__(/*! ../utils/compare-props */ 379);
+	var _utilsCompareProps = __webpack_require__(/*! ../utils/compare-props */ 386);
 	
 	var _utilsCompareProps2 = _interopRequireDefault(_utilsCompareProps);
 	
@@ -36530,7 +37144,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 382 */
+/* 389 */
 /*!*********************************************!*\
   !*** ./~/react-gmaps/dist/events/marker.js ***!
   \*********************************************/
@@ -36567,7 +37181,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 383 */
+/* 390 */
 /*!******************************************************!*\
   !*** ./~/react-gmaps/dist/components/info-window.js ***!
   \******************************************************/
@@ -36581,11 +37195,11 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _entity = __webpack_require__(/*! ./entity */ 381);
+	var _entity = __webpack_require__(/*! ./entity */ 388);
 	
 	var _entity2 = _interopRequireDefault(_entity);
 	
-	var _eventsInfoWindow = __webpack_require__(/*! ../events/info-window */ 384);
+	var _eventsInfoWindow = __webpack_require__(/*! ../events/info-window */ 391);
 	
 	var _eventsInfoWindow2 = _interopRequireDefault(_eventsInfoWindow);
 	
@@ -36593,7 +37207,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 384 */
+/* 391 */
 /*!**************************************************!*\
   !*** ./~/react-gmaps/dist/events/info-window.js ***!
   \**************************************************/
@@ -36614,7 +37228,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 385 */
+/* 392 */
 /*!*************************************************!*\
   !*** ./~/react-gmaps/dist/components/circle.js ***!
   \*************************************************/
@@ -36628,11 +37242,11 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _entity = __webpack_require__(/*! ./entity */ 381);
+	var _entity = __webpack_require__(/*! ./entity */ 388);
 	
 	var _entity2 = _interopRequireDefault(_entity);
 	
-	var _eventsCircle = __webpack_require__(/*! ../events/circle */ 386);
+	var _eventsCircle = __webpack_require__(/*! ../events/circle */ 393);
 	
 	var _eventsCircle2 = _interopRequireDefault(_eventsCircle);
 	
@@ -36640,7 +37254,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 386 */
+/* 393 */
 /*!*********************************************!*\
   !*** ./~/react-gmaps/dist/events/circle.js ***!
   \*********************************************/
@@ -36669,7 +37283,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 387 */
+/* 394 */
 /*!***************************************************!*\
   !*** ./public/javascripts/Components/Display.jsx ***!
   \***************************************************/
@@ -36777,190 +37391,6 @@
 	
 	exports.default = Display;
 	;
-
-/***/ },
-/* 388 */
-/*!*************************************************!*\
-  !*** ./public/javascripts/Components/Photo.jsx ***!
-  \*************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _Grid = __webpack_require__(/*! react-bootstrap/lib/Grid */ 168);
-	
-	var _Grid2 = _interopRequireDefault(_Grid);
-	
-	var _ReturnFileName = __webpack_require__(/*! ../Util/ReturnFileName */ 389);
-	
-	var _ReturnFileName2 = _interopRequireDefault(_ReturnFileName);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var image = {
-	  height: '40vh',
-	  width: '40vh'
-	};
-	
-	var Photo = function (_Component) {
-	  _inherits(Photo, _Component);
-	
-	  function Photo() {
-	    _classCallCheck(this, Photo);
-	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Photo).apply(this, arguments));
-	  }
-	
-	  _createClass(Photo, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        this.props.attractionSelected ? _react2.default.createElement('img', { id: 'attraction_photo', style: image, src: '../../assets/images/' + (0, _ReturnFileName2.default)(this.props.attractionSelected.string[3]) }) : null
-	      );
-	    }
-	  }]);
-	
-	  return Photo;
-	}(_react.Component);
-	
-	exports.default = Photo;
-	;
-
-/***/ },
-/* 389 */
-/*!***************************************************!*\
-  !*** ./public/javascripts/Util/ReturnFileName.js ***!
-  \***************************************************/
-/***/ function(module, exports) {
-
-	function ReturnFileName (name) {
-	    switch (name) {
-	        case "Ripley's Aquarium":
-	            return 'aquarium.png';
-	            break;
-	        case 'Art Gallery of Ontario':
-	            return 'artgalleryontario.jpg';
-	            break;
-	        case 'CN Tower':
-	            return 'cntower.jpg';
-	            break;
-	        case 'Royal Ontario Museum':
-	            return 'rom.jpg';
-	            break;
-	        case 'City Hall':
-	            return 'torontocityhall.jpg';
-	            break;
-	        case 'Eaton Center':
-	            return 'torontoeatoncentre.jpg';
-	            break;
-	        case 'Toronto Zoo':
-	            return 'torontozoo.jpg';
-	            break;
-	        case 'Yorkdale Mall':
-	            return 'yorkdalemall.jpg';
-	            break;
-	        default:
-	            return 'no_image.jpg';
-	            break;
-	
-	    }
-	};
-	
-	module.exports = ReturnFileName;
-
-/***/ },
-/* 390 */
-/*!***************************************************!*\
-  !*** ./public/javascripts/Components/Control.jsx ***!
-  \***************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _Grid = __webpack_require__(/*! react-bootstrap/lib/Grid */ 168);
-	
-	var _Grid2 = _interopRequireDefault(_Grid);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Control = function (_Component) {
-	  _inherits(Control, _Component);
-	
-	  function Control(props) {
-	    _classCallCheck(this, Control);
-	
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Control).call(this, props));
-	
-	    _this._updateShowBixi = _this._updateShowBixi.bind(_this);
-	    return _this;
-	  }
-	
-	  _createClass(Control, [{
-	    key: '_updateShowBixi',
-	    value: function _updateShowBixi() {
-	      this.props._toggleBixi();
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'h1',
-	          null,
-	          'Settings'
-	        ),
-	        'Bixi:',
-	        _react2.default.createElement(
-	          'button',
-	          { className: 'btn btn-default',
-	            onClick: this._updateShowBixi },
-	          this.props.showBixi ? "Hide" : "Show"
-	        ),
-	        _react2.default.createElement('hr', null)
-	      );
-	    }
-	  }]);
-	
-	  return Control;
-	}(_react.Component);
-	
-	exports.default = Control;
 
 /***/ }
 /******/ ]);
