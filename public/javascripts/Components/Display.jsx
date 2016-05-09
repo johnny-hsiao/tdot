@@ -41,30 +41,32 @@ export default class Display extends Component {
                 <a href={this.props.attractionSelected.string[2]}>{this.props.attractionSelected.string[2]}</a>
               
 
-              <h4>Favorite: </h4>
+              <h4>Favorite: 
                 <button className="btn btn-default"
                                id={this.props.attractionSelected.string[3]}
                               key={this.props.attractionSelected.string[3]+"btn"}
                           onClick={this._updateFavorited}>
                 { this.props.favorites && this.props.favorites.indexOf(this.props.attractionSelected.string[3]) >= 0
                   ? <span className="glyphicon glyphicon-heart"></span>
-                  : "false"
+                  : "+"
                 }
                 </button>
+              </h4>
               
 
             </div>
           }
 
-        <h4>Bixi: </h4> 
-        <button className="btn btn-default" 
-                  onClick={this._updateShowBixi}>
-          {
-            this.props.showBixi
-            ? "Hide"
-            : "Show"
-          }
-        </button>
+        <h4>Bixi:  
+          <button className="btn btn-default" 
+                    onClick={this._updateShowBixi}>
+            {
+              this.props.showBixi
+              ? "Hide"
+              : "Show"
+            }
+          </button>
+        </h4>
       </div>
     )
   }

@@ -19,7 +19,7 @@ export default class TableView extends Component {
 
             <tr key={attraction.string[3]}>
               <td className="photo col-xs-2 col-md-2"><Photo attraction={attraction} /></td>
-              <td className="detail col-xs-9 col-md-9"><Detail attraction={attraction} /></td>
+              <td className="detail col-xs-8 col-md-8"><Detail attraction={attraction} /></td>
             </tr>
           )}
         </tbody>

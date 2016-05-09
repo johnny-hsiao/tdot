@@ -18,7 +18,6 @@ export default class Navbar extends Component {
     })
     .then((res) => {
       if (res.data.data.login) {
-        console.log("logging in..........")
         window.localStorage.accessToken = res.data.token;
         this.props._toggleLogIn();
       }
@@ -29,7 +28,6 @@ export default class Navbar extends Component {
     e.preventDefault();
     axios.get(`/logout`)
     .then((res) => {
-      console.log(res.data)
       if (res.data && !res.data.login) {
         window.localStorage.accessToken = null;
         this.props._toggleLogIn();

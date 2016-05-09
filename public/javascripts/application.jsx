@@ -11,8 +11,8 @@ import TableView from './Components/TableView.jsx';
 import MapView from './Components/MapView.jsx';
 
 let style = {
-  marginLeft: '20px',
-  marginRight: '20px'
+  marginLeft: '110px',
+  marginRight: '110px'
 }
 
 class App extends Component {
@@ -114,14 +114,14 @@ class App extends Component {
         <Navbar {...this.state} _toggleLogIn={this._toggleLogIn} />
 
         {this.state.mapView ?
-        <div className="main-container map-view col-xs-12 col-md-12 red" style={style}>
+        <div className="main-container map-view col-xs-12 col-md-11" style={style}>
           <div className="row">
-            <div className="tabular-view col-xs-12 col-md 12">
+            <div className="tabular-view col-xs-12 col-md-11">
               <button className="btn btn-default" onClick={this._toggleView}>Map View</button>
             </div>
           </div>
           <div className="row">
-            <div className="mapview col-xs-12 col-md 12">
+            <div className="mapview col-xs-12 col-md-11">
               { this.state.attractions &&
               <MapView {...this.state} _selectAttraction={this._selectAttraction}
                                         _toggleFavorites={this._toggleFavorites} 
@@ -132,14 +132,14 @@ class App extends Component {
   
         </div>
         :
-        <div className="main-container tabular-view col-xs-12 col-md-12 red" style={style}>
+        <div className="main-container tabular-view col-xs-12 col-md-11 red" style={style}>
           <div className="row">
-            <div className="tabular-view col-xs-12 col-md 12">
+            <div className="tabular-view col-xs-12 col-md-11">
               <button className="btn btn-default" onClick={this._toggleView}>Map View</button>
             </div>
           </div>
           <div className="row">
-            <div className="tabular-view col-xs-12 col-md 12">
+            <div className="tabular-view col-xs-12 col-md-11">
               <TableView {...this.state} />
             </div>
           </div>

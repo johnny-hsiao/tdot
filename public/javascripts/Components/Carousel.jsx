@@ -3,9 +3,13 @@ import Grid from 'react-bootstrap/lib/Grid';
 import ReturnFileName from '../Util/ReturnFileName'
 
 let image = {
-  height: '150px', 
-  width: '150px',
+  height: '100px', 
+  width: '100px',
   overflow: 'hidden'
+}
+
+let carousel = {
+  marginLeft: '120px'
 }
 
 export default class Carousel extends Component {
@@ -30,6 +34,7 @@ export default class Carousel extends Component {
             <div className="carousel-inner">
               <div className="item active">
                 <div className="row">
+                  <div style={carousel}>
                   {this.props.attractions.map((attraction, index) => 
                     index < 4 ?
                     <div className="col-sm-3 col-md-3" 
@@ -38,46 +43,51 @@ export default class Carousel extends Component {
                                 id={attraction.string[3]}
                            onClick={this._updateSelectedAttraction}>
                       <a href="#x">
-                        <img src={'../../assets/images/' + ReturnFileName(attraction.string[3])} alt="Image" />
+                        <img src={'../../assets/images/' + ReturnFileName(attraction.string[3])} alt="Image" width="100px" height="100px" />
                       </a>
                     </div>
                     : null
                   )}
+                  </div>
                 </div>
               </div>
               <div className="item">
                 <div className="row">
-                  {this.props.attractions.map((attraction, index) => 
-                    index >= 4 && index < 8 ?
-                    <div className="col-sm-3 col-md-3" 
-                             style={image} 
-                               key={attraction.string[3]+"btn"}
-                                id={attraction.string[3]}
-                           onClick={this._updateSelectedAttraction}>>
-                      <a href="#x">
-                        <img src={'../../assets/images/' + ReturnFileName(attraction.string[3])} alt="Image" />
-                      </a>
-                    </div>
-                    : null
-                  )}
+                  <div style={carousel}>
+                    {this.props.attractions.map((attraction, index) => 
+                      index >= 4 && index < 8 ?
+                      <div className="col-sm-3 col-md-3" 
+                               style={image} 
+                                 key={attraction.string[3]+"btn"}
+                                  id={attraction.string[3]}
+                             onClick={this._updateSelectedAttraction}>>
+                        <a href="#x">
+                          <img src={'../../assets/images/' + ReturnFileName(attraction.string[3])} alt="Image" width="100px" height="100px" />
+                        </a>
+                      </div>
+                      : null
+                    )}
+                  </div>
                 </div>
               </div>
 
               <div className="item">
                 <div className="row">
-                  {this.props.attractions.map((attraction, index) => 
-                    index >= 8 && index < 12 ?
-                    <div className="col-sm-3 col-md-3" 
-                             style={image} 
-                               key={attraction.string[3]+"btn"}
-                                id={attraction.string[3]}
-                           onClick={this._updateSelectedAttraction}>>
-                      <a href="#x">
-                        <img src={'../../assets/images/' + ReturnFileName(attraction.string[3])} alt="Image" />
-                      </a>
-                    </div>
-                    : null
-                  )}
+                  <div style={carousel}>
+                    {this.props.attractions.map((attraction, index) => 
+                      index >= 8 && index < 12 ?
+                      <div className="col-sm-3 col-md-3" 
+                               style={image} 
+                                 key={attraction.string[3]+"btn"}
+                                  id={attraction.string[3]}
+                             onClick={this._updateSelectedAttraction}>>
+                        <a href="#x">
+                          <img src={'../../assets/images/' + ReturnFileName(attraction.string[3])} alt="Image" width="100px" height="100px" />
+                        </a>
+                      </div>
+                      : null
+                    )}
+                  </div>
                 </div>
               </div>
 

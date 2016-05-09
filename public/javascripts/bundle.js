@@ -98,8 +98,8 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var style = {
-	  marginLeft: '20px',
-	  marginRight: '20px'
+	  marginLeft: '110px',
+	  marginRight: '110px'
 	};
 	
 	var App = function (_Component) {
@@ -215,13 +215,13 @@
 	        _react2.default.createElement(_Navbar2.default, _extends({}, this.state, { _toggleLogIn: this._toggleLogIn })),
 	        this.state.mapView ? _react2.default.createElement(
 	          'div',
-	          { className: 'main-container map-view col-xs-12 col-md-12 red', style: style },
+	          { className: 'main-container map-view col-xs-12 col-md-11', style: style },
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'row' },
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'tabular-view col-xs-12 col-md 12' },
+	              { className: 'tabular-view col-xs-12 col-md-11' },
 	              _react2.default.createElement(
 	                'button',
 	                { className: 'btn btn-default', onClick: this._toggleView },
@@ -234,7 +234,7 @@
 	            { className: 'row' },
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'mapview col-xs-12 col-md 12' },
+	              { className: 'mapview col-xs-12 col-md-11' },
 	              this.state.attractions && _react2.default.createElement(_MapView2.default, _extends({}, this.state, { _selectAttraction: this._selectAttraction,
 	                _toggleFavorites: this._toggleFavorites,
 	                _toggleBixi: this._toggleBixi }))
@@ -242,13 +242,13 @@
 	          )
 	        ) : _react2.default.createElement(
 	          'div',
-	          { className: 'main-container tabular-view col-xs-12 col-md-12 red', style: style },
+	          { className: 'main-container tabular-view col-xs-12 col-md-11 red', style: style },
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'row' },
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'tabular-view col-xs-12 col-md 12' },
+	              { className: 'tabular-view col-xs-12 col-md-11' },
 	              _react2.default.createElement(
 	                'button',
 	                { className: 'btn btn-default', onClick: this._toggleView },
@@ -261,7 +261,7 @@
 	            { className: 'row' },
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'tabular-view col-xs-12 col-md 12' },
+	              { className: 'tabular-view col-xs-12 col-md-11' },
 	              _react2.default.createElement(_TableView2.default, this.state)
 	            )
 	          )
@@ -35808,7 +35808,6 @@
 	        password: e.currentTarget.children[0].lastChild.value
 	      }).then(function (res) {
 	        if (res.data.data.login) {
-	          console.log("logging in..........");
 	          window.localStorage.accessToken = res.data.token;
 	          _this2.props._toggleLogIn();
 	        }
@@ -35821,7 +35820,6 @@
 	
 	      e.preventDefault();
 	      _axios2.default.get('/logout').then(function (res) {
-	        console.log(res.data);
 	        if (res.data && !res.data.login) {
 	          window.localStorage.accessToken = null;
 	          _this3.props._toggleLogIn();
@@ -35977,7 +35975,7 @@
 	                ),
 	                _react2.default.createElement(
 	                  'td',
-	                  { className: 'detail col-xs-9 col-md-9' },
+	                  { className: 'detail col-xs-8 col-md-8' },
 	                  _react2.default.createElement(_Detail2.default, { attraction: attraction })
 	                )
 	              );
@@ -36216,6 +36214,10 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	var style = {
+	  marginLeft: '20px'
+	};
+	
 	var MapView = function (_Component) {
 	  _inherits(MapView, _Component);
 	
@@ -36236,17 +36238,17 @@
 	          { className: 'row' },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'display col-xs-4 col-md 4' },
+	            { className: 'display col-xs-4 col-md-4' },
 	            this.props.attractions && _react2.default.createElement(_Display2.default, this.props)
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'display col-xs-7 col-md 7' },
+	            { className: 'display col-xs-7 col-md-7', style: style },
 	            _react2.default.createElement(_Carousel2.default, this.props)
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'map col-xs-7 col-md 7' },
+	            { className: 'map col-xs-7 col-md-7' },
 	            this.props.attractionSelected && _react2.default.createElement(_Map2.default, _extends({}, this.props, { lat: this.props.attractionSelected.string[1], lng: this.props.attractionSelected.string[0] }))
 	          )
 	        )
@@ -36295,9 +36297,13 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var image = {
-	  height: '150px',
-	  width: '150px',
+	  height: '100px',
+	  width: '100px',
 	  overflow: 'hidden'
+	};
+	
+	var carousel = {
+	  marginLeft: '120px'
 	};
 	
 	var Carousel = function (_Component) {
@@ -36342,21 +36348,25 @@
 	                _react2.default.createElement(
 	                  'div',
 	                  { className: 'row' },
-	                  this.props.attractions.map(function (attraction, index) {
-	                    return index < 4 ? _react2.default.createElement(
-	                      'div',
-	                      { className: 'col-sm-3 col-md-3',
-	                        style: image,
-	                        key: attraction.string[3] + "btn",
-	                        id: attraction.string[3],
-	                        onClick: _this2._updateSelectedAttraction },
-	                      _react2.default.createElement(
-	                        'a',
-	                        { href: '#x' },
-	                        _react2.default.createElement('img', { src: '../../assets/images/' + (0, _ReturnFileName2.default)(attraction.string[3]), alt: 'Image' })
-	                      )
-	                    ) : null;
-	                  })
+	                  _react2.default.createElement(
+	                    'div',
+	                    { style: carousel },
+	                    this.props.attractions.map(function (attraction, index) {
+	                      return index < 4 ? _react2.default.createElement(
+	                        'div',
+	                        { className: 'col-sm-3 col-md-3',
+	                          style: image,
+	                          key: attraction.string[3] + "btn",
+	                          id: attraction.string[3],
+	                          onClick: _this2._updateSelectedAttraction },
+	                        _react2.default.createElement(
+	                          'a',
+	                          { href: '#x' },
+	                          _react2.default.createElement('img', { src: '../../assets/images/' + (0, _ReturnFileName2.default)(attraction.string[3]), alt: 'Image', width: '100px', height: '100px' })
+	                        )
+	                      ) : null;
+	                    })
+	                  )
 	                )
 	              ),
 	              _react2.default.createElement(
@@ -36365,22 +36375,26 @@
 	                _react2.default.createElement(
 	                  'div',
 	                  { className: 'row' },
-	                  this.props.attractions.map(function (attraction, index) {
-	                    return index >= 4 && index < 8 ? _react2.default.createElement(
-	                      'div',
-	                      { className: 'col-sm-3 col-md-3',
-	                        style: image,
-	                        key: attraction.string[3] + "btn",
-	                        id: attraction.string[3],
-	                        onClick: _this2._updateSelectedAttraction },
-	                      '>',
-	                      _react2.default.createElement(
-	                        'a',
-	                        { href: '#x' },
-	                        _react2.default.createElement('img', { src: '../../assets/images/' + (0, _ReturnFileName2.default)(attraction.string[3]), alt: 'Image' })
-	                      )
-	                    ) : null;
-	                  })
+	                  _react2.default.createElement(
+	                    'div',
+	                    { style: carousel },
+	                    this.props.attractions.map(function (attraction, index) {
+	                      return index >= 4 && index < 8 ? _react2.default.createElement(
+	                        'div',
+	                        { className: 'col-sm-3 col-md-3',
+	                          style: image,
+	                          key: attraction.string[3] + "btn",
+	                          id: attraction.string[3],
+	                          onClick: _this2._updateSelectedAttraction },
+	                        '>',
+	                        _react2.default.createElement(
+	                          'a',
+	                          { href: '#x' },
+	                          _react2.default.createElement('img', { src: '../../assets/images/' + (0, _ReturnFileName2.default)(attraction.string[3]), alt: 'Image', width: '100px', height: '100px' })
+	                        )
+	                      ) : null;
+	                    })
+	                  )
 	                )
 	              ),
 	              _react2.default.createElement(
@@ -36389,22 +36403,26 @@
 	                _react2.default.createElement(
 	                  'div',
 	                  { className: 'row' },
-	                  this.props.attractions.map(function (attraction, index) {
-	                    return index >= 8 && index < 12 ? _react2.default.createElement(
-	                      'div',
-	                      { className: 'col-sm-3 col-md-3',
-	                        style: image,
-	                        key: attraction.string[3] + "btn",
-	                        id: attraction.string[3],
-	                        onClick: _this2._updateSelectedAttraction },
-	                      '>',
-	                      _react2.default.createElement(
-	                        'a',
-	                        { href: '#x' },
-	                        _react2.default.createElement('img', { src: '../../assets/images/' + (0, _ReturnFileName2.default)(attraction.string[3]), alt: 'Image' })
-	                      )
-	                    ) : null;
-	                  })
+	                  _react2.default.createElement(
+	                    'div',
+	                    { style: carousel },
+	                    this.props.attractions.map(function (attraction, index) {
+	                      return index >= 8 && index < 12 ? _react2.default.createElement(
+	                        'div',
+	                        { className: 'col-sm-3 col-md-3',
+	                          style: image,
+	                          key: attraction.string[3] + "btn",
+	                          id: attraction.string[3],
+	                          onClick: _this2._updateSelectedAttraction },
+	                        '>',
+	                        _react2.default.createElement(
+	                          'a',
+	                          { href: '#x' },
+	                          _react2.default.createElement('img', { src: '../../assets/images/' + (0, _ReturnFileName2.default)(attraction.string[3]), alt: 'Image', width: '100px', height: '100px' })
+	                        )
+	                      ) : null;
+	                    })
+	                  )
 	                )
 	              )
 	            ),
@@ -36526,27 +36544,27 @@
 	          _react2.default.createElement(
 	            'h4',
 	            null,
-	            'Favorite: '
-	          ),
-	          _react2.default.createElement(
-	            'button',
-	            { className: 'btn btn-default',
-	              id: this.props.attractionSelected.string[3],
-	              key: this.props.attractionSelected.string[3] + "btn",
-	              onClick: this._updateFavorited },
-	            this.props.favorites && this.props.favorites.indexOf(this.props.attractionSelected.string[3]) >= 0 ? _react2.default.createElement('span', { className: 'glyphicon glyphicon-heart' }) : "false"
+	            'Favorite:',
+	            _react2.default.createElement(
+	              'button',
+	              { className: 'btn btn-default',
+	                id: this.props.attractionSelected.string[3],
+	                key: this.props.attractionSelected.string[3] + "btn",
+	                onClick: this._updateFavorited },
+	              this.props.favorites && this.props.favorites.indexOf(this.props.attractionSelected.string[3]) >= 0 ? _react2.default.createElement('span', { className: 'glyphicon glyphicon-heart' }) : "+"
+	            )
 	          )
 	        ),
 	        _react2.default.createElement(
 	          'h4',
 	          null,
-	          'Bixi: '
-	        ),
-	        _react2.default.createElement(
-	          'button',
-	          { className: 'btn btn-default',
-	            onClick: this._updateShowBixi },
-	          this.props.showBixi ? "Hide" : "Show"
+	          'Bixi:',
+	          _react2.default.createElement(
+	            'button',
+	            { className: 'btn btn-default',
+	              onClick: this._updateShowBixi },
+	            this.props.showBixi ? "Hide" : "Show"
+	          )
 	        )
 	      );
 	    }
@@ -36606,8 +36624,8 @@
 	    return _react2.default.createElement(
 	      _reactGmaps.Gmaps,
 	      {
-	        width: '60vw',
-	        height: '60vh',
+	        width: '50vw',
+	        height: '55vh',
 	        lat: this.props.lat,
 	        lng: this.props.lng,
 	        zoom: 15,
