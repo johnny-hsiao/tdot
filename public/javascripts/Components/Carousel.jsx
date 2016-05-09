@@ -42,7 +42,7 @@ export default class Carousel extends Component {
                                key={attraction.string[3]+"btn"}
                                 id={attraction.string[3]}
                            onClick={this._updateSelectedAttraction}>
-                      <a href="#x">
+                      <a href="#">
                         <img src={'../../assets/images/' + ReturnFileName(attraction.string[3])} alt="Image" width="100px" height="100px" />
                       </a>
                     </div>
@@ -60,8 +60,8 @@ export default class Carousel extends Component {
                                style={image} 
                                  key={attraction.string[3]+"btn"}
                                   id={attraction.string[3]}
-                             onClick={this._updateSelectedAttraction}>>
-                        <a href="#x">
+                             onClick={this._updateSelectedAttraction}>
+                        <a href="#">
                           <img src={'../../assets/images/' + ReturnFileName(attraction.string[3])} alt="Image" width="100px" height="100px" />
                         </a>
                       </div>
@@ -80,8 +80,8 @@ export default class Carousel extends Component {
                                style={image} 
                                  key={attraction.string[3]+"btn"}
                                   id={attraction.string[3]}
-                             onClick={this._updateSelectedAttraction}>>
-                        <a href="#x">
+                             onClick={this._updateSelectedAttraction}>
+                        <a href="#">
                           <img src={'../../assets/images/' + ReturnFileName(attraction.string[3])} alt="Image" width="100px" height="100px" />
                         </a>
                       </div>

@@ -1,10 +1,69 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+@import url(https://fonts.googleapis.com/css?family=Lato);
+
+.main-container {
+  padding: 0px 0px;
+  margin-top: 79.6px;
 }
 
-a {
-  color: #00B7FF;
+.row {
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.navbar {
+  padding: 15px 0;
+  background: #155289;
+  border: none;
+  position: fixed;
+  width: 100%;
+  z-index: 98;
+}
+
+.navbar-brand {
+  color: white !important;
+}
+
+#navbar-brand:hover {
+  text-decoration: none;
+}
+
+.navbar-toggle.collapsed {
+  border: none;
+   color: white; 
+}
+
+.navbar-default .navbar-nav>li>a {
+  color: white;
+  text-transform: uppercase;
+  font-family: 'Lato', sans-serif;
+  font-weight: bold;
+  padding-right: 50px;
+}
+
+.navbar {
+  border-radius: 0px;
+}
+
+ul.nav.navbar-nav.navbar-right {
+  font-size: 14px;
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+  color: #AEC7E8;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+  background: white;
+}
+
+.navbar-default .navbar-toggle {
+  border-color: none;
+}
+
+.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+  background-color: none;
 }
 
 .map {

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Grid from 'react-bootstrap/lib/Grid';
+import styles from '../../stylesheets/style.css';
 import axios from 'axios';
 
 export default class Navbar extends Component {
