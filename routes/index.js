@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var fs = require('fs');
+var request = require('request');
 var parseXML = require('../public/javascripts/parseXML/parseXML');
 
 
@@ -14,6 +15,14 @@ router.get('/', function(req, res, next) {
 router.get('/places', function(req, res, next) {
   console.log(path.join(__dirname,'../public/assets/places.plist'));
   res.json(parseXML(path.join(__dirname,'../public/assets/places.plist')));
+});
+
+router.get('/bixi', function(req, res, next) {
+  request('http://www.bikesharetoronto.com/stations/json', function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      res.json(JSON.parse(body));
+    }
+  })
 });
 
 module.exports = router;

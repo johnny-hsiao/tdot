@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import Grid from 'react-bootstrap/lib/Grid';
 import {Gmaps, Marker, InfoWindow, Circle} from 'react-gmaps';
 
-const coords = {
-  lat: 51.5258541,
-  lng: -0.08040660000006028
-};
+// const coords = {
+//   lat: 51.5258541,
+//   lng: -0.08040660000006028
+// };
 
 const Map = React.createClass({
 
@@ -32,25 +32,39 @@ const Map = React.createClass({
       <Gmaps
         width={'50vw'}
         height={'50vh'}
-        lat={coords.lat}
-        lng={coords.lng}
-        zoom={12}
-        loadingMessage={'Be happy'}
+        lat={this.props.lat}
+        lng={this.props.lng}
+        zoom={15}
+        loadingMessage={'Loading...'}
         params={{v: '3.exp'}}
         onMapCreated={this.onMapCreated}>
         <Marker
-          lat={coords.lat}
-          lng={coords.lng}
+          lat={this.props.lat}
+          lng={this.props.lng}
           draggable={true}
           onDragEnd={this.onDragEnd} />
+
+        {
+          this.props.showBixi && this.props.bixi &&
+          this.props.bixi.stationBeanList.map((station) =>
+            <Marker
+            lat={station.latitude}
+            lng={station.longitude}
+            key={station.stationName}
+            icon={'http://maps.google.com/mapfiles/ms/icons/green-dot.png'}
+            draggable={false}
+            onDragEnd={this.onDragEnd} />
+          )
+        }
+        
         <InfoWindow
-          lat={coords.lat}
-          lng={coords.lng}
-          content={'Hello, React :)'}
+          lat={this.props.lat}
+          lng={this.props.lng}
+          content={this.props.attractionSelected.string[3]}
           onCloseClick={this.onCloseClick} />
         <Circle
-          lat={coords.lat}
-          lng={coords.lng}
+          lat={this.props.lat}
+          lng={this.props.lng}
           radius={500}
           onClick={this.onClick} />
       </Gmaps>

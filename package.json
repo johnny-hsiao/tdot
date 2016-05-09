@@ -22,6 +22,7 @@
     "react-bootstrap": "^0.29.3",
     "react-dom": "^15.0.0",
     "react-gmaps": "^1.5.0",
+    "request": "^2.72.0",
     "serve-favicon": "~2.3.0",
     "style-loader": "^0.13.1",
     "xml2js": "^0.4.16"
