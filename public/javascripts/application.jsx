@@ -112,6 +112,7 @@ class App extends Component {
     return (
       <div>
         <Navbar {...this.state} _toggleLogIn={this._toggleLogIn} />
+        <br />
 
         {this.state.mapView ?
         <div className="main-container map-view col-xs-12 col-md-11" style={style}>

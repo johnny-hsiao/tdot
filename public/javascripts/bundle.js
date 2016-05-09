@@ -213,6 +213,7 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(_Navbar2.default, _extends({}, this.state, { _toggleLogIn: this._toggleLogIn })),
+	        _react2.default.createElement('br', null),
 	        this.state.mapView ? _react2.default.createElement(
 	          'div',
 	          { className: 'main-container map-view col-xs-12 col-md-11', style: style },
