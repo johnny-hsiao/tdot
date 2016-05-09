@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import Grid from 'react-bootstrap/lib/Grid';
 
+import Photo from './Photo.jsx';
+
 export default class Display extends Component {
   constructor(props) {
     super(props);
     this._updateSelectedAttraction = this._updateSelectedAttraction.bind(this);
     this._updateFavorited = this._updateFavorited.bind(this);
+    this._updateShowBixi = this._updateShowBixi.bind(this);
   }
 
   _updateSelectedAttraction(e) {
@@ -16,46 +19,52 @@ export default class Display extends Component {
 
   _updateFavorited(e) {
     let name = e.target.getAttribute('id');
-    console.log("clicked", name);
+    console.log("clicked", e.target);
     this.props._toggleFavorites(name);
+  }
+
+  _updateShowBixi() {
+    this.props._toggleBixi();
   }
 
   render() {
     return (
       <div>
-        <h1>Attractions</h1>
+        <h1>{this.props.attractionSelected.string[3]}</h1>
+        <hr />
 
-        <ul>
-          {this.props.attractions.map((attraction) =>
-            attraction.string
-              ? <li className="list-group-item" key={"attractionName" + attraction.string[3]}>
-                  {attraction.string[3] + "  "}
-                  <button className="btn btn-default" 
-                                key={attraction.string[3]+"btn"}
-                                 id={attraction.string[3]}
-                            onClick={this._updateSelectedAttraction}
-                  >
-                    {"Select"}
-                  </button>
-                  <button className="btn btn-default" 
-                                key={attraction.string[3]+"fav"}
-                                 id={attraction.string[3]}
-                            onClick={this._updateFavorited}
-                  >
-                    { 
-                      this.props.favorites && this.props.favorites.indexOf(attraction.string[3]) >= 0
-                      ? <span className="glyphicon glyphicon-heart"></span>
-                      : "false"
-                    }
-                    
-                  </button>
-                </li>
+          {this.props.attractionSelected &&
+            <div>
+              <Photo attraction={this.props.attractionSelected} />
 
+              <h4>Website: </h4>
+                <a href={this.props.attractionSelected.string[2]}>{this.props.attractionSelected.string[2]}</a>
+              
 
+              <h4>Favorite: </h4>
+                <button className="btn btn-default"
+                               id={this.props.attractionSelected.string[3]}
+                              key={this.props.attractionSelected.string[3]+"btn"}
+                          onClick={this._updateFavorited}>
+                { this.props.favorites && this.props.favorites.indexOf(this.props.attractionSelected.string[3]) >= 0
+                  ? <span className="glyphicon glyphicon-heart"></span>
+                  : "false"
+                }
+                </button>
+              
 
-              : null
-          )}
-        </ul>
+            </div>
+          }
+
+        <h4>Bixi: </h4> 
+        <button className="btn btn-default" 
+                  onClick={this._updateShowBixi}>
+          {
+            this.props.showBixi
+            ? "Hide"
+            : "Show"
+          }
+        </button>
       </div>
     )
   }

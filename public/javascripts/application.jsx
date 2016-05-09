@@ -10,10 +10,10 @@ import Navbar from './Components/Navbar.jsx';
 import TableView from './Components/TableView.jsx';
 import MapView from './Components/MapView.jsx';
 
-import Control from './Components/Control.jsx';
-import Map from './Components/Map.jsx';
-import Display from './Components/Display.jsx';
-import Photo from './Components/Photo.jsx';
+let style = {
+  marginLeft: '20px',
+  marginRight: '20px'
+}
 
 class App extends Component {
   constructor(props) {
@@ -24,11 +24,13 @@ class App extends Component {
         lat: 48.856614,
         lng: 2.3522219
       },
+      isLoggedIn: false
     }
     this._selectAttraction = this._selectAttraction.bind(this);
     this._toggleFavorites = this._toggleFavorites.bind(this);
     this._toggleBixi = this._toggleBixi.bind(this);
     this._toggleView = this._toggleView.bind(this);
+    this._toggleLogIn = this._toggleLogIn.bind(this);
   }
 
   componentWillMount() {
@@ -45,7 +47,6 @@ class App extends Component {
 
     axios.get(`/bixi`)
     .then((res) => {
-      console.log(res.data)
       this.setState({
         bixi: res.data,
         showBixi: false
@@ -72,6 +73,12 @@ class App extends Component {
   _toggleView() {
     this.setState({
       mapView: !this.state.mapView
+    })
+  }
+
+  _toggleLogIn() {
+    this.setState({
+      isLoggedIn: !this.state.isLoggedIn
     })
   }
 
@@ -104,10 +111,10 @@ class App extends Component {
 
     return (
       <div>
-        <Navbar />
+        <Navbar {...this.state} _toggleLogIn={this._toggleLogIn} />
 
         {this.state.mapView ?
-        <div className="main-container map-view col-xs-12 col-md-12 red">
+        <div className="main-container map-view col-xs-12 col-md-12 red" style={style}>
           <div className="row">
             <div className="tabular-view col-xs-12 col-md 12">
               <button className="btn btn-default" onClick={this._toggleView}>Map View</button>
@@ -116,41 +123,16 @@ class App extends Component {
           <div className="row">
             <div className="mapview col-xs-12 col-md 12">
               { this.state.attractions &&
-              <MapView {...this.state} />
+              <MapView {...this.state} _selectAttraction={this._selectAttraction}
+                                        _toggleFavorites={this._toggleFavorites} 
+                                             _toggleBixi={this._toggleBixi} />
               }
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="control col-xs-12 col-md 12">
-              <Control {...this.state} _toggleBixi={this._toggleBixi} />
-            </div>
-          </div>
-
-          <div className="row">
-
-            <div className="display col-xs-3 col-md 3">
-              { this.state.attractions && 
-                <Display {...this.state} 
-                        _selectAttraction={this._selectAttraction}
-                        _toggleFavorites={this._toggleFavorites} />
-              }
-            </div>
-
-            <div className="map col-xs-8 col-md 8">
-            { this.state.attractionSelected &&
-              <Map {...this.state} lat={this.state.attractionSelected.string[1]} lng={this.state.attractionSelected.string[0]} />
-            }
-            </div>
-
-            <div className="photo col-xs-3 col-md 3">
-              <Photo attraction={this.state.attractionSelected} />
             </div>
           </div>
   
         </div>
         :
-        <div className="main-container tabular-view col-xs-12 col-md-12 red">
+        <div className="main-container tabular-view col-xs-12 col-md-12 red" style={style}>
           <div className="row">
             <div className="tabular-view col-xs-12 col-md 12">
               <button className="btn btn-default" onClick={this._toggleView}>Map View</button>

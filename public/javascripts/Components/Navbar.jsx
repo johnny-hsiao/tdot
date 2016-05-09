@@ -1,7 +1,42 @@
 import React, { Component } from 'react';
 import Grid from 'react-bootstrap/lib/Grid';
+import axios from 'axios';
 
 export default class Navbar extends Component {
+  constructor(props) {
+    super(props);
+
+    this.login = this.login.bind(this);
+    this.logout = this.logout.bind(this);
+  }
+
+  login(e) {
+    e.preventDefault();
+    axios.post(`/login`, {
+      email: e.currentTarget.children[0].firstChild.value,
+      password: e.currentTarget.children[0].lastChild.value
+    })
+    .then((res) => {
+      if (res.data.data.login) {
+        console.log("logging in..........")
+        window.localStorage.accessToken = res.data.token;
+        this.props._toggleLogIn();
+      }
+    });
+  }
+
+  logout(e) {
+    e.preventDefault();
+    axios.get(`/logout`)
+    .then((res) => {
+      console.log(res.data)
+      if (res.data && !res.data.login) {
+        window.localStorage.accessToken = null;
+        this.props._toggleLogIn();
+      }
+    }); 
+  }
+
   render() {
     return (
       <nav className="navbar navbar-default">
@@ -17,16 +52,24 @@ export default class Navbar extends Component {
           </div>
 
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
+            
             <ul className="nav navbar-nav navbar-right">
-              <form className="navbar-form navbar-right" role="login">
+              { !this.props.isLoggedIn &&
+              <form className="navbar-form navbar-right" role="login" onSubmit={this.login}>
                 <div className="form-group">
-                  <input type="text" className="form-control" placeholder="Username" />
-                  <input type="password" className="form-control" placeholder="Password" />
+                  <input type="text" className="form-control" placeholder="Email" name="email" />
+                  <input type="password" className="form-control" placeholder="Password" name="password" />
                 </div>
-                <button type="submit" className="btn btn-default">Login</button>
+                <button type="submit" className="btn btn-default"  >Login</button>
               </form>
+              }
+              { this.props.isLoggedIn &&
+                <form className="navbar-form navbar-right" role="logout">
+                  <button type="submit" className="btn btn-default" onClick={this.logout} >Logout</button>
+                </form>
+              }
             </ul>
+            
 
           </div>
         </div>

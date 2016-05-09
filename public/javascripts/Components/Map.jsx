@@ -30,8 +30,8 @@ const Map = React.createClass({
   render() {
     return (
       <Gmaps
-        width={'70vw'}
-        height={'70vh'}
+        width={'60vw'}
+        height={'60vh'}
         lat={this.props.lat}
         lng={this.props.lng}
         zoom={15}

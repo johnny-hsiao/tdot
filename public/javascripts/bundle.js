@@ -89,22 +89,6 @@
 	
 	var _MapView2 = _interopRequireDefault(_MapView);
 	
-	var _Control = __webpack_require__(/*! ./Components/Control.jsx */ 376);
-	
-	var _Control2 = _interopRequireDefault(_Control);
-	
-	var _Map = __webpack_require__(/*! ./Components/Map.jsx */ 377);
-	
-	var _Map2 = _interopRequireDefault(_Map);
-	
-	var _Display = __webpack_require__(/*! ./Components/Display.jsx */ 394);
-	
-	var _Display2 = _interopRequireDefault(_Display);
-	
-	var _Photo = __webpack_require__(/*! ./Components/Photo.jsx */ 371);
-	
-	var _Photo2 = _interopRequireDefault(_Photo);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -112,6 +96,11 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var style = {
+	  marginLeft: '20px',
+	  marginRight: '20px'
+	};
 	
 	var App = function (_Component) {
 	  _inherits(App, _Component);
@@ -126,12 +115,14 @@
 	      mapCoordinates: {
 	        lat: 48.856614,
 	        lng: 2.3522219
-	      }
+	      },
+	      isLoggedIn: false
 	    };
 	    _this._selectAttraction = _this._selectAttraction.bind(_this);
 	    _this._toggleFavorites = _this._toggleFavorites.bind(_this);
 	    _this._toggleBixi = _this._toggleBixi.bind(_this);
 	    _this._toggleView = _this._toggleView.bind(_this);
+	    _this._toggleLogIn = _this._toggleLogIn.bind(_this);
 	    return _this;
 	  }
 	
@@ -151,7 +142,6 @@
 	      });
 	
 	      _axios2.default.get('/bixi').then(function (res) {
-	        console.log(res.data);
 	        _this2.setState({
 	          bixi: res.data,
 	          showBixi: false
@@ -186,6 +176,13 @@
 	      });
 	    }
 	  }, {
+	    key: '_toggleLogIn',
+	    value: function _toggleLogIn() {
+	      this.setState({
+	        isLoggedIn: !this.state.isLoggedIn
+	      });
+	    }
+	  }, {
 	    key: '_toggleFavorites',
 	    value: function _toggleFavorites(attraction) {
 	
@@ -215,10 +212,10 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_Navbar2.default, null),
+	        _react2.default.createElement(_Navbar2.default, _extends({}, this.state, { _toggleLogIn: this._toggleLogIn })),
 	        this.state.mapView ? _react2.default.createElement(
 	          'div',
-	          { className: 'main-container map-view col-xs-12 col-md-12 red' },
+	          { className: 'main-container map-view col-xs-12 col-md-12 red', style: style },
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'row' },
@@ -238,42 +235,14 @@
 	            _react2.default.createElement(
 	              'div',
 	              { className: 'mapview col-xs-12 col-md 12' },
-	              this.state.attractions && _react2.default.createElement(_MapView2.default, this.state)
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'row' },
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'control col-xs-12 col-md 12' },
-	              _react2.default.createElement(_Control2.default, _extends({}, this.state, { _toggleBixi: this._toggleBixi }))
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'row' },
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'display col-xs-3 col-md 3' },
-	              this.state.attractions && _react2.default.createElement(_Display2.default, _extends({}, this.state, {
-	                _selectAttraction: this._selectAttraction,
-	                _toggleFavorites: this._toggleFavorites }))
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'map col-xs-8 col-md 8' },
-	              this.state.attractionSelected && _react2.default.createElement(_Map2.default, _extends({}, this.state, { lat: this.state.attractionSelected.string[1], lng: this.state.attractionSelected.string[0] }))
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'photo col-xs-3 col-md 3' },
-	              _react2.default.createElement(_Photo2.default, { attraction: this.state.attractionSelected })
+	              this.state.attractions && _react2.default.createElement(_MapView2.default, _extends({}, this.state, { _selectAttraction: this._selectAttraction,
+	                _toggleFavorites: this._toggleFavorites,
+	                _toggleBixi: this._toggleBixi }))
 	            )
 	          )
 	        ) : _react2.default.createElement(
 	          'div',
-	          { className: 'main-container tabular-view col-xs-12 col-md-12 red' },
+	          { className: 'main-container tabular-view col-xs-12 col-md-12 red', style: style },
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'row' },
@@ -35803,6 +35772,10 @@
 	
 	var _Grid2 = _interopRequireDefault(_Grid);
 	
+	var _axios = __webpack_require__(/*! axios */ 351);
+	
+	var _axios2 = _interopRequireDefault(_axios);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -35814,13 +35787,48 @@
 	var Navbar = function (_Component) {
 	  _inherits(Navbar, _Component);
 	
-	  function Navbar() {
+	  function Navbar(props) {
 	    _classCallCheck(this, Navbar);
 	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Navbar).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Navbar).call(this, props));
+	
+	    _this.login = _this.login.bind(_this);
+	    _this.logout = _this.logout.bind(_this);
+	    return _this;
 	  }
 	
 	  _createClass(Navbar, [{
+	    key: 'login',
+	    value: function login(e) {
+	      var _this2 = this;
+	
+	      e.preventDefault();
+	      _axios2.default.post('/login', {
+	        email: e.currentTarget.children[0].firstChild.value,
+	        password: e.currentTarget.children[0].lastChild.value
+	      }).then(function (res) {
+	        if (res.data.data.login) {
+	          console.log("logging in..........");
+	          window.localStorage.accessToken = res.data.token;
+	          _this2.props._toggleLogIn();
+	        }
+	      });
+	    }
+	  }, {
+	    key: 'logout',
+	    value: function logout(e) {
+	      var _this3 = this;
+	
+	      e.preventDefault();
+	      _axios2.default.get('/logout').then(function (res) {
+	        console.log(res.data);
+	        if (res.data && !res.data.login) {
+	          window.localStorage.accessToken = null;
+	          _this3.props._toggleLogIn();
+	        }
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -35856,19 +35864,28 @@
 	            _react2.default.createElement(
 	              'ul',
 	              { className: 'nav navbar-nav navbar-right' },
-	              _react2.default.createElement(
+	              !this.props.isLoggedIn && _react2.default.createElement(
 	                'form',
-	                { className: 'navbar-form navbar-right', role: 'login' },
+	                { className: 'navbar-form navbar-right', role: 'login', onSubmit: this.login },
 	                _react2.default.createElement(
 	                  'div',
 	                  { className: 'form-group' },
-	                  _react2.default.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Username' }),
-	                  _react2.default.createElement('input', { type: 'password', className: 'form-control', placeholder: 'Password' })
+	                  _react2.default.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Email', name: 'email' }),
+	                  _react2.default.createElement('input', { type: 'password', className: 'form-control', placeholder: 'Password', name: 'password' })
 	                ),
 	                _react2.default.createElement(
 	                  'button',
 	                  { type: 'submit', className: 'btn btn-default' },
 	                  'Login'
+	                )
+	              ),
+	              this.props.isLoggedIn && _react2.default.createElement(
+	                'form',
+	                { className: 'navbar-form navbar-right', role: 'logout' },
+	                _react2.default.createElement(
+	                  'button',
+	                  { type: 'submit', className: 'btn btn-default', onClick: this.logout },
+	                  'Logout'
 	                )
 	              )
 	            )
@@ -36167,6 +36184,8 @@
 	  value: true
 	});
 	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _react = __webpack_require__(/*! react */ 1);
@@ -36180,6 +36199,14 @@
 	var _Carousel = __webpack_require__(/*! ./Carousel.jsx */ 375);
 	
 	var _Carousel2 = _interopRequireDefault(_Carousel);
+	
+	var _Display = __webpack_require__(/*! ./Display.jsx */ 376);
+	
+	var _Display2 = _interopRequireDefault(_Display);
+	
+	var _Map = __webpack_require__(/*! ./Map.jsx */ 377);
+	
+	var _Map2 = _interopRequireDefault(_Map);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -36204,7 +36231,25 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_Carousel2.default, this.props)
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'display col-xs-4 col-md 4' },
+	            this.props.attractions && _react2.default.createElement(_Display2.default, this.props)
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'display col-xs-7 col-md 7' },
+	            _react2.default.createElement(_Carousel2.default, this.props)
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'map col-xs-7 col-md 7' },
+	            this.props.attractionSelected && _react2.default.createElement(_Map2.default, _extends({}, this.props, { lat: this.props.attractionSelected.string[1], lng: this.props.attractionSelected.string[0] }))
+	          )
+	        )
 	      );
 	    }
 	  }]);
@@ -36250,8 +36295,8 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var image = {
-	  height: '200px',
-	  width: '200px',
+	  height: '150px',
+	  width: '150px',
 	  overflow: 'hidden'
 	};
 	
@@ -36261,12 +36306,24 @@
 	  function Carousel(props) {
 	    _classCallCheck(this, Carousel);
 	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Carousel).call(this, props));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Carousel).call(this, props));
+	
+	    _this._updateSelectedAttraction = _this._updateSelectedAttraction.bind(_this);
+	    return _this;
 	  }
 	
 	  _createClass(Carousel, [{
+	    key: '_updateSelectedAttraction',
+	    value: function _updateSelectedAttraction(e) {
+	      var name = e.currentTarget.getAttribute('id');
+	      console.log("clicked", e.currentTarget);
+	      this.props._selectAttraction(name);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+	
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -36288,7 +36345,11 @@
 	                  this.props.attractions.map(function (attraction, index) {
 	                    return index < 4 ? _react2.default.createElement(
 	                      'div',
-	                      { className: 'col-sm-3 col-md-3', style: image, key: attraction.string[3] },
+	                      { className: 'col-sm-3 col-md-3',
+	                        style: image,
+	                        key: attraction.string[3] + "btn",
+	                        id: attraction.string[3],
+	                        onClick: _this2._updateSelectedAttraction },
 	                      _react2.default.createElement(
 	                        'a',
 	                        { href: '#x' },
@@ -36307,7 +36368,12 @@
 	                  this.props.attractions.map(function (attraction, index) {
 	                    return index >= 4 && index < 8 ? _react2.default.createElement(
 	                      'div',
-	                      { className: 'col-sm-3 col-md-3', style: image, key: attraction.string[3] },
+	                      { className: 'col-sm-3 col-md-3',
+	                        style: image,
+	                        key: attraction.string[3] + "btn",
+	                        id: attraction.string[3],
+	                        onClick: _this2._updateSelectedAttraction },
+	                      '>',
 	                      _react2.default.createElement(
 	                        'a',
 	                        { href: '#x' },
@@ -36326,7 +36392,12 @@
 	                  this.props.attractions.map(function (attraction, index) {
 	                    return index >= 8 && index < 12 ? _react2.default.createElement(
 	                      'div',
-	                      { className: 'col-sm-3 col-md-3', style: image, key: attraction.string[3] },
+	                      { className: 'col-sm-3 col-md-3',
+	                        style: image,
+	                        key: attraction.string[3] + "btn",
+	                        id: attraction.string[3],
+	                        onClick: _this2._updateSelectedAttraction },
+	                      '>',
 	                      _react2.default.createElement(
 	                        'a',
 	                        { href: '#x' },
@@ -36361,7 +36432,7 @@
 /***/ },
 /* 376 */
 /*!***************************************************!*\
-  !*** ./public/javascripts/Components/Control.jsx ***!
+  !*** ./public/javascripts/Components/Display.jsx ***!
   \***************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
@@ -36381,6 +36452,10 @@
 	
 	var _Grid2 = _interopRequireDefault(_Grid);
 	
+	var _Photo = __webpack_require__(/*! ./Photo.jsx */ 371);
+	
+	var _Photo2 = _interopRequireDefault(_Photo);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -36389,19 +36464,35 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var Control = function (_Component) {
-	  _inherits(Control, _Component);
+	var Display = function (_Component) {
+	  _inherits(Display, _Component);
 	
-	  function Control(props) {
-	    _classCallCheck(this, Control);
+	  function Display(props) {
+	    _classCallCheck(this, Display);
 	
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Control).call(this, props));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Display).call(this, props));
 	
+	    _this._updateSelectedAttraction = _this._updateSelectedAttraction.bind(_this);
+	    _this._updateFavorited = _this._updateFavorited.bind(_this);
 	    _this._updateShowBixi = _this._updateShowBixi.bind(_this);
 	    return _this;
 	  }
 	
-	  _createClass(Control, [{
+	  _createClass(Display, [{
+	    key: '_updateSelectedAttraction',
+	    value: function _updateSelectedAttraction(e) {
+	      var name = e.target.getAttribute('id');
+	      console.log("clicked", name);
+	      this.props._selectAttraction(name);
+	    }
+	  }, {
+	    key: '_updateFavorited',
+	    value: function _updateFavorited(e) {
+	      var name = e.target.getAttribute('id');
+	      console.log("clicked", e.target);
+	      this.props._toggleFavorites(name);
+	    }
+	  }, {
 	    key: '_updateShowBixi',
 	    value: function _updateShowBixi() {
 	      this.props._toggleBixi();
@@ -36415,24 +36506,57 @@
 	        _react2.default.createElement(
 	          'h1',
 	          null,
-	          'Settings'
+	          this.props.attractionSelected.string[3]
 	        ),
-	        'Bixi:',
+	        _react2.default.createElement('hr', null),
+	        this.props.attractionSelected && _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(_Photo2.default, { attraction: this.props.attractionSelected }),
+	          _react2.default.createElement(
+	            'h4',
+	            null,
+	            'Website: '
+	          ),
+	          _react2.default.createElement(
+	            'a',
+	            { href: this.props.attractionSelected.string[2] },
+	            this.props.attractionSelected.string[2]
+	          ),
+	          _react2.default.createElement(
+	            'h4',
+	            null,
+	            'Favorite: '
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { className: 'btn btn-default',
+	              id: this.props.attractionSelected.string[3],
+	              key: this.props.attractionSelected.string[3] + "btn",
+	              onClick: this._updateFavorited },
+	            this.props.favorites && this.props.favorites.indexOf(this.props.attractionSelected.string[3]) >= 0 ? _react2.default.createElement('span', { className: 'glyphicon glyphicon-heart' }) : "false"
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'h4',
+	          null,
+	          'Bixi: '
+	        ),
 	        _react2.default.createElement(
 	          'button',
 	          { className: 'btn btn-default',
 	            onClick: this._updateShowBixi },
 	          this.props.showBixi ? "Hide" : "Show"
-	        ),
-	        _react2.default.createElement('hr', null)
+	        )
 	      );
 	    }
 	  }]);
 	
-	  return Control;
+	  return Display;
 	}(_react.Component);
 	
-	exports.default = Control;
+	exports.default = Display;
+	;
 
 /***/ },
 /* 377 */
@@ -36482,8 +36606,8 @@
 	    return _react2.default.createElement(
 	      _reactGmaps.Gmaps,
 	      {
-	        width: '70vw',
-	        height: '70vh',
+	        width: '60vw',
+	        height: '60vh',
 	        lat: this.props.lat,
 	        lng: this.props.lng,
 	        zoom: 15,
@@ -37281,116 +37405,6 @@
 	  onRightClick: 'rightclick'
 	};
 	module.exports = exports['default'];
-
-/***/ },
-/* 394 */
-/*!***************************************************!*\
-  !*** ./public/javascripts/Components/Display.jsx ***!
-  \***************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _Grid = __webpack_require__(/*! react-bootstrap/lib/Grid */ 168);
-	
-	var _Grid2 = _interopRequireDefault(_Grid);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Display = function (_Component) {
-	  _inherits(Display, _Component);
-	
-	  function Display(props) {
-	    _classCallCheck(this, Display);
-	
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Display).call(this, props));
-	
-	    _this._updateSelectedAttraction = _this._updateSelectedAttraction.bind(_this);
-	    _this._updateFavorited = _this._updateFavorited.bind(_this);
-	    return _this;
-	  }
-	
-	  _createClass(Display, [{
-	    key: '_updateSelectedAttraction',
-	    value: function _updateSelectedAttraction(e) {
-	      var name = e.target.getAttribute('id');
-	      console.log("clicked", name);
-	      this.props._selectAttraction(name);
-	    }
-	  }, {
-	    key: '_updateFavorited',
-	    value: function _updateFavorited(e) {
-	      var name = e.target.getAttribute('id');
-	      console.log("clicked", name);
-	      this.props._toggleFavorites(name);
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _this2 = this;
-	
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'h1',
-	          null,
-	          'Attractions'
-	        ),
-	        _react2.default.createElement(
-	          'ul',
-	          null,
-	          this.props.attractions.map(function (attraction) {
-	            return attraction.string ? _react2.default.createElement(
-	              'li',
-	              { className: 'list-group-item', key: "attractionName" + attraction.string[3] },
-	              attraction.string[3] + "  ",
-	              _react2.default.createElement(
-	                'button',
-	                { className: 'btn btn-default',
-	                  key: attraction.string[3] + "btn",
-	                  id: attraction.string[3],
-	                  onClick: _this2._updateSelectedAttraction
-	                },
-	                "Select"
-	              ),
-	              _react2.default.createElement(
-	                'button',
-	                { className: 'btn btn-default',
-	                  key: attraction.string[3] + "fav",
-	                  id: attraction.string[3],
-	                  onClick: _this2._updateFavorited
-	                },
-	                _this2.props.favorites && _this2.props.favorites.indexOf(attraction.string[3]) >= 0 ? _react2.default.createElement('span', { className: 'glyphicon glyphicon-heart' }) : "false"
-	              )
-	            ) : null;
-	          })
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return Display;
-	}(_react.Component);
-	
-	exports.default = Display;
-	;
 
 /***/ }
 /******/ ]);

@@ -3,16 +3,22 @@ import Grid from 'react-bootstrap/lib/Grid';
 import ReturnFileName from '../Util/ReturnFileName'
 
 let image = {
-  height: '200px', 
-  width: '200px',
+  height: '150px', 
+  width: '150px',
   overflow: 'hidden'
 }
 
 export default class Carousel extends Component {
   constructor(props) {
     super(props);
+    this._updateSelectedAttraction = this._updateSelectedAttraction.bind(this);
   }
 
+  _updateSelectedAttraction(e) {
+    let name = e.currentTarget.getAttribute('id');
+    console.log("clicked", e.currentTarget);
+    this.props._selectAttraction(name);
+  }
 
   render() {
     return (
@@ -26,7 +32,11 @@ export default class Carousel extends Component {
                 <div className="row">
                   {this.props.attractions.map((attraction, index) => 
                     index < 4 ?
-                    <div className="col-sm-3 col-md-3" style={image} key={attraction.string[3]}>
+                    <div className="col-sm-3 col-md-3" 
+                             style={image} 
+                               key={attraction.string[3]+"btn"}
+                                id={attraction.string[3]}
+                           onClick={this._updateSelectedAttraction}>
                       <a href="#x">
                         <img src={'../../assets/images/' + ReturnFileName(attraction.string[3])} alt="Image" />
                       </a>
@@ -39,7 +49,11 @@ export default class Carousel extends Component {
                 <div className="row">
                   {this.props.attractions.map((attraction, index) => 
                     index >= 4 && index < 8 ?
-                    <div className="col-sm-3 col-md-3" style={image} key={attraction.string[3]}>
+                    <div className="col-sm-3 col-md-3" 
+                             style={image} 
+                               key={attraction.string[3]+"btn"}
+                                id={attraction.string[3]}
+                           onClick={this._updateSelectedAttraction}>>
                       <a href="#x">
                         <img src={'../../assets/images/' + ReturnFileName(attraction.string[3])} alt="Image" />
                       </a>
@@ -53,7 +67,11 @@ export default class Carousel extends Component {
                 <div className="row">
                   {this.props.attractions.map((attraction, index) => 
                     index >= 8 && index < 12 ?
-                    <div className="col-sm-3 col-md-3" style={image} key={attraction.string[3]}>
+                    <div className="col-sm-3 col-md-3" 
+                             style={image} 
+                               key={attraction.string[3]+"btn"}
+                                id={attraction.string[3]}
+                           onClick={this._updateSelectedAttraction}>>
                       <a href="#x">
                         <img src={'../../assets/images/' + ReturnFileName(attraction.string[3])} alt="Image" />
                       </a>
