@@ -12,7 +12,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/places', function(req, res, next) {
-  console.log(path.join(__dirname,'../public/assets/places.plist'));
   res.json(parseXML(path.join(__dirname,'../public/assets/places.plist')));
 });
 
@@ -25,7 +24,6 @@ router.get('/bixi', function(req, res, next) {
 });
 
 router.post('/login', function(req, res, next) {
-  console.log("logging in...")
   var ref = new Firebase("https://incandescent-heat-9855.firebaseio.com");
   ref.authWithPassword({
     email    : req.body.email,
@@ -38,7 +36,6 @@ router.post('/login', function(req, res, next) {
         login: false
       });
     } else {
-      console.log("Authenticated successfully with payload:", authData);
       res.send({  
         message: 200,
         token: authData.token,
@@ -54,7 +51,5 @@ router.get('/logout', function(req, res, next) {
     login: false
   });
 });
-
-
 
 module.exports = router;

@@ -20,7 +20,6 @@ export default class Carousel extends Component {
 
   _updateSelectedAttraction(e) {
     let name = e.currentTarget.getAttribute('id');
-    console.log("clicked", e.currentTarget);
     this.props._selectAttraction(name);
   }
 

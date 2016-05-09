@@ -10,7 +10,6 @@ function parseXML (XMLPath) {
             var parser = new xml2js.Parser();
             parser.parseString(fileData.substring(0, fileData.length), function (err, result) {
                 json = JSON.stringify(result);
-                console.log(JSON.stringify(result));
             });
 
             console.log("File '" + filePath + "/ was successfully read.\n");

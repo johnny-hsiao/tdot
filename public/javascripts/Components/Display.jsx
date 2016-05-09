@@ -13,13 +13,11 @@ export default class Display extends Component {
 
   _updateSelectedAttraction(e) {
     let name = e.target.getAttribute('id');
-    console.log("clicked", name);
     this.props._selectAttraction(name);
   }
 
   _updateFavorited(e) {
     let name = e.target.getAttribute('id');
-    console.log("clicked", e.target);
     this.props._toggleFavorites(name);
   }
 
@@ -40,7 +38,6 @@ export default class Display extends Component {
               <h4>Website: </h4>
                 <a href={this.props.attractionSelected.string[2]}>{this.props.attractionSelected.string[2]}</a>
               
-
               <h4>Favorite: 
                 <button className="btn btn-default"
                                id={this.props.attractionSelected.string[3]}
@@ -53,7 +50,6 @@ export default class Display extends Component {
                 </button>
               </h4>
               
-
             </div>
           }
 

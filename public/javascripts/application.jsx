@@ -83,7 +83,6 @@ class App extends Component {
   }
 
   _toggleFavorites(attraction) {
-
     let indexOfAttraction = this.state.favorites.indexOf(attraction);
 
     if (indexOfAttraction < 0) {
@@ -104,7 +103,6 @@ class App extends Component {
         })
       }
     }
-    console.log("new", this.state.favorites);
   }
 
   render() {

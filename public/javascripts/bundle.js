@@ -185,7 +185,6 @@
 	  }, {
 	    key: '_toggleFavorites',
 	    value: function _toggleFavorites(attraction) {
-	
 	      var indexOfAttraction = this.state.favorites.indexOf(attraction);
 	
 	      if (indexOfAttraction < 0) {
@@ -203,7 +202,6 @@
 	          });
 	        }
 	      }
-	      console.log("new", this.state.favorites);
 	    }
 	  }, {
 	    key: 'render',
@@ -21431,7 +21429,6 @@
 	            var parser = new xml2js.Parser();
 	            parser.parseString(fileData.substring(0, fileData.length), function (err, result) {
 	                json = JSON.stringify(result);
-	                console.log(JSON.stringify(result));
 	            });
 	
 	            console.log("File '" + filePath + "/ was successfully read.\n");
@@ -36687,7 +36684,6 @@
 	    key: '_updateSelectedAttraction',
 	    value: function _updateSelectedAttraction(e) {
 	      var name = e.currentTarget.getAttribute('id');
-	      console.log("clicked", e.currentTarget);
 	      this.props._selectAttraction(name);
 	    }
 	  }, {
@@ -36863,14 +36859,12 @@
 	    key: '_updateSelectedAttraction',
 	    value: function _updateSelectedAttraction(e) {
 	      var name = e.target.getAttribute('id');
-	      console.log("clicked", name);
 	      this.props._selectAttraction(name);
 	    }
 	  }, {
 	    key: '_updateFavorited',
 	    value: function _updateFavorited(e) {
 	      var name = e.target.getAttribute('id');
-	      console.log("clicked", e.target);
 	      this.props._toggleFavorites(name);
 	    }
 	  }, {
