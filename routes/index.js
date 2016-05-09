@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
   res.sendFile(path.join(__dirname,'../views/index.html'));
 });
 
-router.get('/test', function(req, res, next) {
+router.get('/places', function(req, res, next) {
   console.log(path.join(__dirname,'../public/assets/places.plist'));
   res.json(parseXML(path.join(__dirname,'../public/assets/places.plist')));
 });

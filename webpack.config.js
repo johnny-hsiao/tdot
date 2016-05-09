@@ -6,6 +6,8 @@ var path = require('path');
 
 var config = {
   entry: path.join(__dirname + '/public/javascripts/application.jsx'),
+  debug: true,
+  devtool: 'cheap-module-eval-source-map',
   resolve: {
     extensions: ['', '.js', '.jsx']
   },
