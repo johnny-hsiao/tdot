@@ -224,7 +224,7 @@
 	              _react2.default.createElement(
 	                'button',
 	                { className: 'btn btn-default', onClick: this._toggleView },
-	                'Map View'
+	                'Table View'
 	              )
 	            )
 	          ),

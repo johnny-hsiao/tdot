@@ -116,7 +116,7 @@ class App extends Component {
         <div className="main-container map-view col-xs-12 col-md-11" style={style}>
           <div className="row">
             <div className="tabular-view col-xs-12 col-md-11">
-              <button className="btn btn-default" onClick={this._toggleView}>Map View</button>
+              <button className="btn btn-default" onClick={this._toggleView}>Table View</button>
             </div>
           </div>
           <div className="row">
