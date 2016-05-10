@@ -41,7 +41,7 @@ class App extends Component {
         attractions: res.data.plist.array[0].dict,
         attractionSelected: res.data.plist.array[0].dict[0],
         favorites: [],
-        mapView: false
+        mapView: true
       })
     });
 
