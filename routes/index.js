@@ -23,33 +23,4 @@ router.get('/bixi', function(req, res, next) {
   })
 });
 
-router.post('/login', function(req, res, next) {
-  var ref = new Firebase("https://incandescent-heat-9855.firebaseio.com");
-  ref.authWithPassword({
-    email    : req.body.email,
-    password : req.body.password
-  }, function(error, authData) {
-    if (error) {
-      console.log("Login Failed!", error);
-      res.send({  
-        message: 200,
-        login: false
-      });
-    } else {
-      res.send({  
-        message: 200,
-        token: authData.token,
-        login: true
-      });
-    }
-  });
-})
-
-router.get('/logout', function(req, res, next) {
-  res.send({
-    message: 200,
-    login: false
-  });
-});
-
 module.exports = router;

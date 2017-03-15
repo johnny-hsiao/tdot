@@ -210,7 +210,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_Navbar2.default, _extends({}, this.state, { _toggleLogIn: this._toggleLogIn })),
+	        _react2.default.createElement(_Navbar2.default, _extends({}, this.state, { _toggleLogIn: this._toggleLogIn, _toggleView: this._toggleView })),
 	        _react2.default.createElement('br', null),
 	        this.state.mapView ? _react2.default.createElement(
 	          'div',
@@ -35802,31 +35802,29 @@
 	  _createClass(Navbar, [{
 	    key: 'login',
 	    value: function login(e) {
-	      var _this2 = this;
-	
 	      e.preventDefault();
-	      _axios2.default.post('/login', {
-	        email: e.currentTarget.children[0].firstChild.value,
-	        password: e.currentTarget.children[0].lastChild.value
-	      }).then(function (res) {
-	        if (res.data && res.data.data.login) {
-	          window.localStorage.accessToken = res.data.token;
-	          _this2.props._toggleLogIn();
-	        }
-	      });
+	      // axios.post(`/login`, {
+	      //   email: e.currentTarget.children[0].firstChild.value,
+	      //   password: e.currentTarget.children[0].lastChild.value
+	      // })
+	      // .then((res) => {
+	      //   if (res.data && res.data.data.login) {
+	      //     window.localStorage.accessToken = res.data.token;
+	      //     this.props._toggleLogIn();
+	      //   }
+	      // });
 	    }
 	  }, {
 	    key: 'logout',
 	    value: function logout(e) {
-	      var _this3 = this;
-	
 	      e.preventDefault();
-	      _axios2.default.get('/logout').then(function (res) {
-	        if (res.data && !res.data.login) {
-	          window.localStorage.accessToken = null;
-	          _this3.props._toggleLogIn();
-	        }
-	      });
+	      // axios.get(`/logout`)
+	      // .then((res) => {
+	      //   if (res.data && !res.data.login) {
+	      //     window.localStorage.accessToken = null;
+	      //     this.props._toggleLogIn();
+	      //   }
+	      // });
 	    }
 	  }, {
 	    key: 'render',
@@ -35864,28 +35862,45 @@
 	            _react2.default.createElement(
 	              'ul',
 	              { className: 'nav navbar-nav navbar-right' },
+	              _react2.default.createElement(
+	                'li',
+	                null,
+	                _react2.default.createElement(
+	                  'a',
+	                  { href: '#', onClick: this.props._toggleView },
+	                  'Toggle View'
+	                )
+	              ),
 	              !this.props.isLoggedIn && _react2.default.createElement(
-	                'form',
-	                { className: 'navbar-form navbar-right', role: 'login', onSubmit: this.login },
+	                'li',
+	                null,
 	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'form-group' },
-	                  _react2.default.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Email', name: 'email' }),
-	                  _react2.default.createElement('input', { type: 'password', className: 'form-control', placeholder: 'Password', name: 'password' })
-	                ),
-	                _react2.default.createElement(
-	                  'button',
-	                  { type: 'submit', className: 'btn btn-default' },
-	                  'Login'
+	                  'form',
+	                  { className: 'navbar-form navbar-right', role: 'login', onSubmit: this.login },
+	                  _react2.default.createElement(
+	                    'div',
+	                    { className: 'form-group' },
+	                    _react2.default.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Email', name: 'email' }),
+	                    _react2.default.createElement('input', { type: 'password', className: 'form-control', placeholder: 'Password', name: 'password' })
+	                  ),
+	                  _react2.default.createElement(
+	                    'button',
+	                    { type: 'submit', className: 'btn btn-default' },
+	                    'Login'
+	                  )
 	                )
 	              ),
 	              this.props.isLoggedIn && _react2.default.createElement(
-	                'form',
-	                { className: 'navbar-form navbar-right', role: 'logout' },
+	                'li',
+	                null,
 	                _react2.default.createElement(
-	                  'button',
-	                  { type: 'submit', className: 'btn btn-default', onClick: this.logout },
-	                  'Logout'
+	                  'form',
+	                  { className: 'navbar-form navbar-right', role: 'logout' },
+	                  _react2.default.createElement(
+	                    'button',
+	                    { type: 'submit', className: 'btn btn-default', onClick: this.logout },
+	                    'Logout'
+	                  )
 	                )
 	              )
 	            )

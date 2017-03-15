@@ -109,7 +109,7 @@ class App extends Component {
 
     return (
       <div>
-        <Navbar {...this.state} _toggleLogIn={this._toggleLogIn} />
+        <Navbar {...this.state} _toggleLogIn={this._toggleLogIn} _toggleView={this._toggleView} />
         <br />
 
         {this.state.mapView ?

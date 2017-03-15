@@ -13,27 +13,10 @@ export default class Navbar extends Component {
 
   login(e) {
     e.preventDefault();
-    axios.post(`/login`, {
-      email: e.currentTarget.children[0].firstChild.value,
-      password: e.currentTarget.children[0].lastChild.value
-    })
-    .then((res) => {
-      if (res.data && res.data.data.login) {
-        window.localStorage.accessToken = res.data.token;
-        this.props._toggleLogIn();
-      }
-    });
   }
 
   logout(e) {
     e.preventDefault();
-    axios.get(`/logout`)
-    .then((res) => {
-      if (res.data && !res.data.login) {
-        window.localStorage.accessToken = null;
-        this.props._toggleLogIn();
-      }
-    }); 
   }
 
   render() {
@@ -53,7 +36,10 @@ export default class Navbar extends Component {
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             
             <ul className="nav navbar-nav navbar-right">
+              <li><a href="#" onClick={this.props._toggleView}>Toggle View</a></li>
+
               { !this.props.isLoggedIn &&
+              <li>
               <form className="navbar-form navbar-right" role="login" onSubmit={this.login}>
                 <div className="form-group">
                   <input type="text" className="form-control" placeholder="Email" name="email" />
@@ -61,11 +47,14 @@ export default class Navbar extends Component {
                 </div>
                 <button type="submit" className="btn btn-default"  >Login</button>
               </form>
+              </li>
               }
               { this.props.isLoggedIn &&
+                <li>
                 <form className="navbar-form navbar-right" role="logout">
                   <button type="submit" className="btn btn-default" onClick={this.logout} >Logout</button>
                 </form>
+                </li>
               }
             </ul>
             

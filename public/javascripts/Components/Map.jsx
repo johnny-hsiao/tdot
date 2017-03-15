@@ -2,11 +2,6 @@ import React, { Component } from 'react';
 import Grid from 'react-bootstrap/lib/Grid';
 import {Gmaps, Marker, InfoWindow, Circle} from 'react-gmaps';
 
-// const coords = {
-//   lat: 51.5258541,
-//   lng: -0.08040660000006028
-// };
-
 const Map = React.createClass({
 
   onMapCreated(map) {
